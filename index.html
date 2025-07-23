@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mavid - Foto & Videografie</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #1c1c1e;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #2c2c2e;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Start transparant */
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      display: inline-block;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #3a3a3c;
+    }
+
+    section.hero {
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    section.hero img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    section.hero .hero-text {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    section.hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    section.hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+    }
+
+    section.over-ons, section.portfolio, section.diensten-prijzen, section.contact {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+
+    section.over-ons h2,
+    section.portfolio h2,
+    section.diensten-prijzen h2,
+    section.contact h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #0a1e3f;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    /* Over Ons tekst */
+    section.over-ons p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    /* Portfolio */
+    .category-buttons {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .category-buttons button {
+      background-color: #0a1e3f;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem 1rem 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .category-buttons button:hover,
+    .category-buttons button.active {
+      background-color: #152f69;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      background-color: #f0f0f3;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .portfolio-item h4 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: #0a1e3f;
+    }
+
+    .portfolio-item p {
+      font-size: 0.95rem;
+      color: #555;
+      min-height: 60px;
+    }
+
+    .project-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #0a1e3f;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .project-button:hover {
+      background-color: #152f69;
+    }
+
+    /* Diensten & Prijzen */
+    .diensten-prijzen ul {
+      max-width: 700px;
+      margin: 0 auto;
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .diensten-prijzen ul li {
+      margin-bottom: 0.7rem;
+    }
+
+    /* Contact */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    .contact-form button {
+      background-color: #0a1e3f;
+      color: white;
+      padding: 1.2rem 2.5rem; /* Iets grotere padding */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.3rem; /* Grotere tekst */
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      display: block;         /* Zorgt dat margin auto werkt */
+      margin: 0 auto;         /* Centreert de knop horizontaal */
+    }
+
+    .contact-form button:hover {
+      background-color: #152f69;
+    }
+
+    footer {
+      background-color: #1c1c1e;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      section.hero h2 {
+        font-size: 2rem;
+      }
+
+      section.hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mavid</h1>
+    <p>Professionele Foto & Videografie voor Evenementen, Bruiloften, Campings en Hotels</p>
+  </header>
+
+  <nav>
+    <a href="#over-ons">Over Ons</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#diensten-prijzen">Diensten & Prijzen</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80" alt="Hero afbeelding" />
+    <div class="hero-text">
+      <h2>Leg uw onvergetelijke momenten vast</h2>
+      <p>Wij leveren hoogwaardige foto's en video's vanaf de grond en lucht voor uw speciale gelegenheden. Van romantische bruiloften tot levendige campings en stijlvolle hotels: wij brengen uw momenten tot leven.</p>
+      <a href="#portfolio" class="project-button">Bekijk ons werk</a>
+    </div>
+  </section>
+
+  <section class="over-ons" id="over-ons" style="text-align: center;">
+    <h2>Over Ons</h2>
+    <p>
+     Wij zijn David en Mark – twee jonge creatievelingen met een passie voor beeld, techniek en verhalen vertellen. Met MAVID combineren we onze liefde voor fotografie, videografie en dronebeelden om momenten vast te leggen die écht blijven hangen. Of het nu een sfeervolle camping is, een bruiloft of een uniek project: wij brengen het in beeld zoals het gevoeld wordt.
+ </p>
+  </section>
+
+  <section class="portfolio" id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="category-buttons">
+      <button class="active" data-category="all">Alle projecten</button>
+      <button data-category="bruiloften">Bruiloften & Evenementen</button>
+      <button data-category="campings">Campings & Hotels</button>
+      <button data-category="overige">Overige Projecten</button>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item" data-category="bruiloften">
+        <h4>Bruiloft Jan & Sofie</h4>
+        <p>Romantische sfeerbeelden van een prachtige dag in de Ardennen.</p>
+        <a href="photos.html?project=Jan-Sofie" class="project-button">Bekijk foto's</a>
+      </div>
+      <div class="portfolio-item" data-category="bruiloften">
+        <h4>Zomerfestival 2024</h4>
+        <p>Een dynamische videocompilatie van het jaarlijkse festival op de camping.</p>
+        <a href="photos.html?project=Zomerfestival" class="project-button">Bekijk foto's</a>
+      </div>
+      <div class="portfolio-item" data-category="campings">
+        <h4>Hotelpromotie Strandzicht</h4>
+        <p>Een visuele impressie van luxe en ontspanning aan zee.</p>
+        <a href="photos.html?project=Strandzicht" class="project-button">Bekijk foto's</a>
+      </div>
+      <div class="portfolio-item" data-category="overige">
+        <h4>Zakelijke reportage TechCon</h4>
+        <p>Professionele weergave van een technologiebeurs en interviews.</p>
+        <a href="photos.html?project=Techcon" class="project-button">Bekijk foto's</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="diensten-prijzen" id="diensten-prijzen">
+    <h2>Diensten & Prijzen</h2>
+    <ul>
+      <li>Professionele fotografie op locatie</li>
+      <li>Dronebeelden van hoge kwaliteit</li>
+      <li>Videomontage met muziek en kleurcorrectie</li>
+      <p><strong>Prijzen vanaf €150 per shoot.</strong><br> Neem contact op voor een vrijblijvende offerte.</p>
+    </ul>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Contact</h2>
+    <div class="contact-form">
+      <form action="mailto:info@jouwbedrijfsnaam.nl" method="POST" enctype="text/plain">
+        <input type="text" name="naam" placeholder="Uw naam" required />
+        <input type="email" name="email" placeholder="Uw e-mailadres" required />
+        <textarea name="bericht" rows="6" placeholder="Uw bericht..." required></textarea>
+        <button type="submit">Verstuur</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Jouw Bedrijfsnaam. Alle rechten voorbehouden.</p>
+    <p>Contact: <a href="mailto:info@jouwbedrijfsnaam.nl" style="color:white; text-decoration:underline;">info@jouwbedrijfsnaam.nl</a> | Tel: <a href="tel:+31612345678" style="color:white; text-decoration:underline;">06-12345678</a></p>
+  </footer>
+
+  <script>
+  // Portfolio filtering
+  const buttons = document.querySelectorAll('.category-buttons button');
+  const items = document.querySelectorAll('.portfolio-item');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const category = button.getAttribute('data-category');
+
+      items.forEach(item => {
+        item.style.display =
+          category === 'all' || item.getAttribute('data-category') === category
+            ? 'block'
+            : 'none';
+      });
+    });
+  });
+
+  // Sticky nav visual effect on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 10) {
+      nav.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+      nav.style.backgroundColor = '#1f1f21'; // iets donkerder bij scroll
+    } else {
+      nav.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0)';
+      nav.style.backgroundColor = '#2c2c2e'; // originele kleur
+    }
+  });
+</script>
+
+</body>
+</html>
